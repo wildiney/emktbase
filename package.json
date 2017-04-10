@@ -1,0 +1,19 @@
+{
+  "name": "emkt-base",
+  "version": "1.0.0",
+  "description": "Base para a criação de email marketing",
+  "scripts": {
+    "start": "gulp browserSync",
+    "build": "gulp imagemin html"
+  },
+  "author": "Fernando Di Masi",
+  "license": "MIT",
+  "dependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-inline-css": "^3.1.0",
+    "gulp-strip-comments": "^2.4.5"
+  }
+}
