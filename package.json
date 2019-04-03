@@ -1,20 +1,24 @@
 {
   "name": "emkt-base",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Base para a criação de email marketing",
+  "repository": "https://github.com/wildiney/emktbase.git",
   "scripts": {
-    "start": "gulp browserSync",
+    "start": "gulp",
     "build": "gulp imagemin html"
   },
+  "keywords": [
+    "e-mail",
+    "template"
+  ],
   "author": "Fernando Di Masi",
   "license": "MIT",
-  "dependencies": {
-    "browser-sync": "^2.18.8",
-    "gulp": "^3.9.1",
-    "gulp-htmlmin": "^3.0.0",
-    "gulp-imagemin": "^3.2.0",
-    "gulp-inline-css": "^3.1.0",
-    "gulp-strip-comments": "^2.4.5",
-    "gulp-open": "^2.0.0"
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^4.0.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-inline-css": "^3.3.1",
+    "gulp-strip-comments": "^2.4.5"
   }
 }

@@ -3,8 +3,11 @@
 
 Arquivos base para a construção de email marketing
 
+## ATUALIZAÇÃO 2.1.0
+Atualização para a versão 4 do Gulp
+
 ## ATUALIZAÇÃO 2.0.0
-Atualização para a utilização com GULP 4
+Atualização para a versão 3.9 do Gulp
 
 
 ## Donation
