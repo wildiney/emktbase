@@ -20,7 +20,8 @@ const syncOpts = {
   },
   open: true,
   notify: true,
-  browser: 'google chrome'
+  // if not windows use 'google chrome'
+  browser: ['chrome.exe']
 };
 
 function minifyHTML() {
@@ -42,7 +43,7 @@ function optimizeImage() {
   return src(source.images)
     .pipe(imagemin())
     .pipe(dest(dist.images))
-    .pipe(browserSync.reload({ stream: true }));
+    .pipe(browsersync.reload({ stream: true }));
 }
 
 function bSync(cb) {
