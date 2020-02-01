@@ -1,94 +1,107 @@
-const { src, dest, series, watch, parallel, task } = require('gulp');
+"use strict";
 
-const gulp = require('gulp');
-const notify = require('gulp-notify');
-const strip = require('gulp-strip-comments');
-const htmlmin = require('gulp-htmlmin');
-const inlineCSS = require('gulp-inline-css');
-const imagemin = require('gulp-imagemin');
-const browsersync = require('browser-sync').create();
-const sass = require('gulp-sass');
-const plumber = require('gulp-plumber'); //Prevent pipe breaking caused by errors from gulp plugins
+const { src, dest, series, watch, parallel } = require("gulp");
+const del = require("del");
+const notify = require("gulp-notify");
+const strip = require("gulp-strip-comments");
+const htmlmin = require("gulp-htmlmin");
+const inlineCSS = require("gulp-inline-css");
+const imagemin = require("gulp-imagemin");
+const browsersync = require("browser-sync").create();
+const sass = require("gulp-sass");
+const plumber = require("gulp-plumber"); //Prevent pipe breaking caused by errors from gulp plugins
 
-
-const dist = {
-  html: ['./dist/'],
-  images: ['./dist/images/']
+const path = {
+  files: {
+    src: {
+      html: "./src/*.html",
+      scss: "./src/scss/*.scss",
+      images: "./src/images/*"
+    },
+    dist: {
+      html: "./dist/*.html"
+    }
+  },
+  folder: {
+    src: {
+      html: "./src/",
+      scss: "./src/scss/",
+      css: "./src/css/"
+    },
+    dist: {
+      html: "./dist/",
+      images: "./dist/images/"
+    }
+  }
 };
-
-const source = {
-  html: ['./src/*.html'],
-  scss: ['./src/scss/**/*.scss'],
-  cssFolder: ['./src/css/'],
-  cssFiles: ['./src/css/**/*.css'],
-  images: ['./src/images/*']
-};
-
 const syncOpts = {
   server: {
-    baseDir: dist.html
+    baseDir: path.folder.dist.html
   },
   port: 3030,
-  open: true,
-  notify: true,
-  // if not windows use 'google chrome'
-  browser: ['chrome.exe']
+  notify: true
 };
-
-function browserSync(){
+function browserSync(done) {
   browsersync.init(syncOpts);
+  done();
 }
-
-const browserSyncReload = () => {
+function browserSyncReload(){
   browsersync.reload();
+};
+function clean(done){
+  del.sync('dist/**');
+  done();
 }
-
 function scss() {
-  return gulp.src('src/scss/*.scss')
+  return src(path.files.src.scss)
     .pipe(plumber())
     .pipe(sass({ outputStyle: "expanded" }))
-    .pipe(gulp.dest(source.cssFolder))
+    .pipe(dest(path.folder.src.css))
     .pipe(browsersync.stream())
     .pipe(notify("SCSS Finished"));
 }
-
-function css(){
-  return gulp.src('src/*.html')
-    .pipe(inlineCSS({
-      applyStyleTags: true,
-      applyLinkTags: true,
-      removeStyleTags: true,
-      removeLinkTags: true
-    }))
-    .pipe(gulp.dest('dist/'))
+function css() {
+  return src(path.files.src.html)
+    .pipe(
+      inlineCSS({
+        applyStyleTags: true,
+        applyLinkTags: true,
+        removeStyleTags: true,
+        removeLinkTags: true
+      })
+    )
+    .pipe(dest(path.folder.dist.html))
     .pipe(browsersync.stream())
     .pipe(notify("CSS Finished"));
 }
-
-function html(){
-  return gulp.src('dist/*.html')
+function html() {
+  return src(path.files.dist.html)
+    .pipe(strip())
     .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(gulp.dest('dist/'))
+    .pipe(dest(path.folder.dist.html))
     .pipe(browsersync.stream())
     .pipe(notify("HTML Finished"));
 }
-
 function optimizeImage() {
-  return gulp.src(source.images)
+  return src(path.files.src.images)
     .pipe(imagemin())
-    .pipe(gulp.dest(dist.images))
+    .pipe(dest(path.folder.dist.images))
     .pipe(browsersync.reload({ stream: true }));
 }
-
-function watchFiles(){
-  gulp.watch('src/scss/*.scss', gulp.parallel(gulp.series(scss, css, html))).on('change', browsersync.reload);
-  //watch(source.html, minifyHTML).on('change', browserSyncReload);
+function watchFiles() {
+  watch([path.files.src.scss, path.files.src.html], series(scss, css, html)).on(
+    "change",
+    browserSyncReload
+  );
 }
 
-const watcher = gulp.parallel(watchFiles, browserSync);
-const build = gulp.parallel(scss, css, html, optimizeImage)
+const build = series(clean, parallel(scss, css, html, optimizeImage));
+const watcher = series(build, parallel(watchFiles, browserSync));
 
-//gulp.task('default', gulp.series(scss, css, html));
+exports.scss = scss;
+exports.css = css;
+exports.html = html;
+exports.clean = clean;
 
 exports.watch = watcher;
 exports.build = build;
