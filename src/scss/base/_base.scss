@@ -1,0 +1,65 @@
+body {
+  width: 100% !important;
+
+  margin: 0;
+  padding: 0;
+  background: $color-7C;
+}
+::selection {
+  background-color: $color-3035C;
+}
+#outlook a {
+  padding: 0;
+}
+.ExternalClass {
+  width: 100%;
+}
+.ExternalClass,
+.ExternalClass p,
+.ExternalClass span,
+.ExternalClass font,
+.ExternalClass td,
+.ExternalClass div {
+  line-height: 100%;
+}
+#backgroundTable,
+.background {
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+  background: $color-7C !important;
+}
+p {
+  margin: 1em 0;
+  padding: 0;
+}
+img {
+  display: block;
+  outline: none;
+  text-decoration: none;
+  -ms-interpolation-mode: bicubic;
+}
+table {
+  border-collapse: collapse;
+  mso-table-lspace: 0pt;
+  mso-table-rspace: 0pt;
+}
+table td {
+  border-collapse: collapse;
+}
+.table-full-width {
+  width: 580px;
+}
+.table-padding-20 {
+  width: 560px;
+}
+.container {
+  background: $color-white !important;
+  width: $content-width;
+}
+.content {
+  width: 520px;
+}
+a img {
+  border: none;
+}

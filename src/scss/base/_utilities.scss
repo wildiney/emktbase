@@ -1,0 +1,5 @@
+@for $n from 1 to 6 {
+  .spacer-#{$n*10} {
+    height: #{$n * 10}px;
+  }
+}

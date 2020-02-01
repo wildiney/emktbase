@@ -1,0 +1,47 @@
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: $color-3035C !important;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $color-3035C !important;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  line-height: 150%;
+}
+p {
+  font-size: 0px;
+  line-height: 150%;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
+a {
+  text-decoration: none;
+  color: $color-143C;
+  font-weight: bold;
+}
+a.phone {
+  text-decoration: none;
+  color: #000001 !important;
+  pointer-events: auto;
+  cursor: default;
+}
+strong {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+table td {
+  font-family: Arial, Helvetica, sans-serif;
+}
+#backgroundTable,
+.background {
+  line-height: 100% !important;
+}
