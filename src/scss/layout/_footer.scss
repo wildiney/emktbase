@@ -1,12 +1,12 @@
 .footer {
-  width: $content-width;
+  width: $container-width;
 }
 
 .footer td {
   height: 50px;
   vertical-align: middle;
   text-align: center;
-  background-color: #292929;
+  background-color: $color-7C;
   color: white;
   font-family: Arial, sans-serif;
   font-size: 10px;

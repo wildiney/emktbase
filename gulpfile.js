@@ -14,9 +14,9 @@ const plumber = require("gulp-plumber"); //Prevent pipe breaking caused by error
 const path = {
   files: {
     src: {
-      html: "./src/*.html",
-      scss: "./src/scss/*.scss",
-      images: "./src/images/*"
+      html: "./src/templates/*.html",
+      scss: "./src/scss/**/*.scss",
+      images: "./src/assets/images/*"
     },
     dist: {
       html: "./dist/*.html"
@@ -24,7 +24,7 @@ const path = {
   },
   folder: {
     src: {
-      html: "./src/",
+      html: "./src/templates/",
       scss: "./src/scss/",
       css: "./src/css/"
     },
@@ -66,7 +66,7 @@ function css() {
       inlineCSS({
         applyStyleTags: true,
         applyLinkTags: true,
-        removeStyleTags: true,
+        removeStyleTags: false,
         removeLinkTags: true
       })
     )
@@ -76,7 +76,6 @@ function css() {
 }
 function html() {
   return src(path.files.dist.html)
-    .pipe(strip())
     .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(dest(path.folder.dist.html))
     .pipe(browsersync.stream())
@@ -101,6 +100,7 @@ const watcher = series(build, parallel(watchFiles, browserSync));
 exports.scss = scss;
 exports.css = css;
 exports.html = html;
+exports.optimizeImage = optimizeImage;
 exports.clean = clean;
 
 exports.watch = watcher;

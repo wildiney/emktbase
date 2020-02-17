@@ -4,8 +4,8 @@
   "description": "Base para a criação de email marketing",
   "repository": "https://github.com/wildiney/emktbase.git",
   "scripts": {
-    "start": "gulp",
-    "build": "gulp imagemin html"
+    "start": "gulp watch",
+    "build": "gulp build"
   },
   "keywords": [
     "e-mail",
